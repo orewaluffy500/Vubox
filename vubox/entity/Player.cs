@@ -40,6 +40,10 @@ public class Player : Entity
 
     public override void Update(float dt)
     {
+        // 1. get pixel visual coords
+        // 2. lerp them to (CameraPos - (ScreenSize / CameraZoom / 2))
+        //      this lerps the camera's target to the visual position offset by half the screen width relative to the current camera zoom.
+
         Camera.Target.X = JsaMath.Lerp(Camera.Target.X, (VisualPosition.X * Globals.CELL_SIZE) - (Globals.WIDTH / Camera.Zoom / 2), dt * (LERP_SPEED * 0.75f));
         Camera.Target.Y = JsaMath.Lerp(Camera.Target.Y, (VisualPosition.Y * Globals.CELL_SIZE) - (Globals.HEIGHT / Camera.Zoom / 2), dt * (LERP_SPEED * 0.75f));
         
@@ -63,6 +67,7 @@ public class Player : Entity
         if (Raylib.IsKeyDown(KeyboardKey.Minus))
         {
             Camera.Zoom -= 15f * dt;
+            // auto update for better feel
             Camera.Target.X = (VisualPosition.X * Globals.CELL_SIZE) - (Globals.WIDTH / Camera.Zoom / 2);
             Camera.Target.Y = (VisualPosition.Y * Globals.CELL_SIZE) - (Globals.HEIGHT / Camera.Zoom / 2);
         }

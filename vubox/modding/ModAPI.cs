@@ -12,7 +12,8 @@ public partial class ModAPI(Engine engine)
     public ModAPI_Debug debug { get; } = new();
     [LuaMember]
     public ModAPI_World world { get; } = new(engine.World);
-
+    [LuaMember]
+    public ModAPI_Resources res { get; } = new();
 
     [LuaMember]
     public int callback(LuaFunction function)

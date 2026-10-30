@@ -36,11 +36,13 @@ public class Hand(Player player) : Entity
     {
         base.Update(dt);
 
-        var (x, y) = (Raylib.GetMouseX(), Raylib.GetMouseY());
-        var v = Raylib.GetScreenToWorld2D(new(x, y), Player.Camera);
-        var (ix, iy) = (MathF.Round(v.X / Globals.CELL_SIZE) * Globals.CELL_SIZE, MathF.Round(v.Y / Globals.CELL_SIZE) * Globals.CELL_SIZE);
-        X = (int)(ix / Globals.CELL_SIZE);
-        Y = (int)(iy / Globals.CELL_SIZE);
+        var (mouseX, mouseY) = (Raylib.GetMouseX(), Raylib.GetMouseY()); // Mouse x and y
+        
+        var mouseWorldPosition = Raylib.GetScreenToWorld2D(new(mouseX, mouseY), Player.Camera);
+
+        var (roundedCellX, roundedCellY) = (MathF.Round(mouseWorldPosition.X / Globals.CELL_SIZE) * Globals.CELL_SIZE, MathF.Round(mouseWorldPosition.Y / Globals.CELL_SIZE) * Globals.CELL_SIZE);
+        X = (int)(roundedCellX / Globals.CELL_SIZE);
+        Y = (int)(roundedCellY / Globals.CELL_SIZE); // convert pixel cell coords back into grid coords
 
         var keys = BlockLoader.Configs.Keys.ToArray();
 
