@@ -45,7 +45,7 @@ public class World : IObject
         Grid.Update(dt);
     }
 
-    public Block? PlaceAsync(string name, int globalX, int globalY, bool replace = false)
+    public Block? Place(string name, int globalX, int globalY, bool replace = false)
     {
         if (!replace)
         {
@@ -69,7 +69,7 @@ public class World : IObject
         return block;
     }
 
-    public void DestroyAsync(int globalX, int globalY)
+    public void Destroy(int globalX, int globalY)
     {
         // Get block
         var block = Grid.Get(globalX, globalY);

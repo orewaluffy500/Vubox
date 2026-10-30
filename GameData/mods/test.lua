@@ -1,0 +1,1 @@
+game.debug:log("Hello!")

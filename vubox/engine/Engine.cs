@@ -33,7 +33,6 @@ public class Engine
 
     public void LoadAsync()
     {
-        TextureLoader.LoadFrom("GameData/textures/");
         BlockLoader.LoadDefaults();
         World.Load();
         LuaEnv.Load();
@@ -132,15 +131,15 @@ public class Engine
         );
     }
 
-    public static void DrawTexture(string textureName, Rectangle source, Rectangle dest, float originX = 0f, float originY = 0f, int angle = 0)
+    public static void DrawTexture(int textureId, Rectangle source, Rectangle dest, float originX = 0f, float originY = 0f, int angle = 0)
     {
-        Texture2D? texture = TextureLoader.Loaded(textureName) ? TextureLoader.GetTexture(textureName) : null;
+        Texture2D? texture = TextureLoader.GetTextureUnsure(textureId);
         DrawTexture(texture, source, dest, originX, originY);
     }
 
-    public static void DrawTexture(string textureName, int x, int y, int w, int h, float originX = 0f, float originY = 0f, int angle = 0)
+    public static void DrawTexture(int textureId, int x, int y, int w, int h, float originX = 0f, float originY = 0f, int angle = 0)
     {
-        Texture2D? texture = TextureLoader.Loaded(textureName) ? TextureLoader.GetTexture(textureName) : null;
+        Texture2D? texture = TextureLoader.GetTextureUnsure(textureId);
         DrawTexture(texture, x, y, w, h, originX, originY);
     }
 }

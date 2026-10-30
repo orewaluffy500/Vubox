@@ -55,12 +55,12 @@ public class Hand(Player player) : Entity
 
         else if (Raylib.IsMouseButtonDown(MouseButton.Left))
         {
-            Player.Engine.World.DestroyAsync(X, Y);
+            Player.Engine.World.Destroy(X, Y);
         }
 
         else if (Raylib.IsMouseButtonDown(MouseButton.Right))
         {
-            Player.Engine.World.PlaceAsync(Selected, X, Y);
+            Player.Engine.World.Place(Selected, X, Y);
         }
 
         else if (Raylib.IsKeyPressed(KeyboardKey.F))

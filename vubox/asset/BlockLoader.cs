@@ -1,3 +1,4 @@
+using vubox.asset;
 using vubox.blocks;
 using vubox.engine.blockconfig;
 using vubox.entity;
@@ -31,13 +32,13 @@ public static class BlockLoader
 
     public static void LoadDefaults()
     {
-        LoadBlock(new BlockConfig("dirt", "default:dirt")
+        LoadBlock(new BlockConfig(TextureLoader.Load("textures/dirt.png"), "default:dirt")
             .Display("dirt"));
-        LoadBlock(new BlockConfig("stone", "default:stone")
+        LoadBlock(new BlockConfig(TextureLoader.Load("textures/stone.png"), "default:stone")
             .Display("stone"));
-        LoadBlock(new BlockConfig("gravel", "default:gravel")
+        LoadBlock(new BlockConfig(TextureLoader.Load("textures/gravel.png"), "default:gravel")
             .Display("gravel"));
-        LoadBlock(new BlockConfig("planks", "default:planks")
+        LoadBlock(new BlockConfig(TextureLoader.Load("textures/planks.png"), "default:planks")
             .Display("planks"));
     }
 }

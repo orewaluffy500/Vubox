@@ -10,18 +10,19 @@ public class Block(Engine engine) : IObject
     public int X = 0, Y = 0;
     public int Frame = 0, Row = 0;
     
-    string oldTexture = "";
+    int oldTexture = -1;
     Texture2D? texture = null;
-    public string TextureName = "";
+    public int TextureName = -1;
     public string Name = "";
 
     public void Draw()
     {
+        // we add cell-size / 2 to the pixel coords so it aligns with the grid
         Engine.DrawTexture(
             texture,
             new(Frame * Globals.CELL_SIZE, Row * Globals.CELL_SIZE, Globals.CELL_SIZE, Globals.CELL_SIZE),
-            new(X * Globals.CELL_SIZE, Y * Globals.CELL_SIZE, Globals.CELL_SIZE, Globals.CELL_SIZE),
-            0f, 0f, 0
+            new(X * Globals.CELL_SIZE + Globals.CELL_SIZE / 2, Y * Globals.CELL_SIZE + Globals.CELL_SIZE / 2, Globals.CELL_SIZE, Globals.CELL_SIZE),
+            0.5f, 0.5f, 0
         );
     }
 

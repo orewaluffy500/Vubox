@@ -6,22 +6,22 @@ namespace vubox.modding;
 [LuaObject]
 public partial class ModAPI_Debug
 {
-    [LuaMember]
-    public void log(string message)
+    [LuaMember("log")]
+    public void Log(string message)
     {
         Console.WriteLine($"[MOD] (LOG) :: {message}");
     }
 
-    [LuaMember]
-    public void err(string message)
+    [LuaMember("error")]
+    public void Err(string message)
     {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine($"[MOD] (ERROR) :: {message}");
         Console.ResetColor();
     }
 
-    [LuaMember]
-    public void warn(string message)
+    [LuaMember("warn")]
+    public void Warn(string message)
     {
         Console.ForegroundColor = ConsoleColor.Yellow;
         Console.WriteLine($"[MOD] (WARN) :: {message}");

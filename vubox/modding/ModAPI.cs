@@ -8,21 +8,21 @@ public partial class ModAPI(Engine engine)
 {
     Engine _engine = engine;
 
-    [LuaMember]
-    public ModAPI_Debug debug { get; } = new();
-    [LuaMember]
-    public ModAPI_World world { get; } = new(engine.World);
-    [LuaMember]
-    public ModAPI_Resources res { get; } = new();
+    [LuaMember("debug")]
+    public ModAPI_Debug Debug { get; } = new();
+    [LuaMember("world")]
+    public ModAPI_World World { get; } = new(engine.World);
+    [LuaMember("res")]
+    public ModAPI_Resources Resources { get; } = new();
 
-    [LuaMember]
-    public int callback(LuaFunction function)
+    [LuaMember("callback")]
+    public int Callback(LuaFunction function)
     {
         return _engine.CallbackManager.CreateCallback(function);
     }
 
-    [LuaMember]
-    public void on(string name, int id)
+    [LuaMember("on")]
+    public void On(string name, int id)
     {
         _engine.EventManager.On(name, id);
     }

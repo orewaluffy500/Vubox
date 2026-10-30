@@ -2,10 +2,10 @@ using vubox.blocks;
 
 namespace vubox.engine.blockconfig;
 
-public class BlockConfig(string texture, string name)
+public class BlockConfig(int texture, string name)
 {
     public string Name { get; private set; } = name;
-    public string Texture { get; private set; } = texture;
+    public int Texture { get; private set; } = texture;
     public string DisplayName { get; private set; } = name;
     public BlockConfig Display(string v){ DisplayName = v; return this; }
 

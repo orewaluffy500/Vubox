@@ -4,42 +4,37 @@ namespace vubox.asset;
 
 public static class TextureLoader
 {
-    private static Dictionary<string, Texture2D> textures = [];
+    private static List<Texture2D> textures = [];
 
-    public static void LoadFrom(string directory)
+    public static int Load(string path)
     {
-        if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
+        string final = "GameData/" + path;
 
-        foreach (string file in Directory.EnumerateFiles(directory))
-        {
-            if (!File.Exists(file)) continue; // if its not file
+        if (!File.Exists(final)) return -1;
 
-            Texture2D texture = Raylib.LoadTexture(file);
-            Raylib.SetTextureFilter(texture, TextureFilter.Point);
-            string name = file.Split("/").Last().Split(".").First();
-            textures[name] = texture;
-        }
+        textures.Add(Raylib.LoadTexture(final));
+        return textures.Count - 1;
     }
 
     public static void Unload()
     {
-        foreach (var pair in textures)
+        foreach (var tex in textures)
         {
-            Raylib.UnloadTexture(pair.Value);
+            Raylib.UnloadTexture(tex);
         }
     }
 
-    public static Texture2D GetTexture(string key)
+    public static Texture2D GetTexture(int key)
     {
-        if (textures.TryGetValue(key, out var t)) return t;
-        throw new Exception($"unable to find texture: {key}");
+        if (key >= 0 && key < textures.Count) return textures[key];
+        throw new Exception($"unable to find texture from key: {key}");
     }
 
-    public static Texture2D? GetTextureUnsure(string key)
+    public static Texture2D? GetTextureUnsure(int key)
     {
-        if (textures.TryGetValue(key, out var t)) return t;
+        if (key >= 0 && key < textures.Count) return Raylib.IsTextureValid(textures[key]) ? textures[key] : null;
         return null;
-    }
+    } 
 
-    public static bool Loaded(string key) => textures.TryGetValue(key, out var t) ? Raylib.IsTextureValid(t) : false;
+    public static bool Loaded(int key) => key >= 0 && key < textures.Count && Raylib.IsTextureValid(textures[key]);
 }
