@@ -16,7 +16,7 @@ public class BlockConfig(int texture, string name)
             X = x,
             Y = y,
             Name = Name,
-            TextureName = Texture
+            TextureId = Texture
         };
         return b;
     }

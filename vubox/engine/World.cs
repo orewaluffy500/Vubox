@@ -104,5 +104,6 @@ public struct WorldEventManager(World world) : IEventManager
     {
         if (name == "place") Placed.Get()[Placed.Top] = id;
         if (name == "break") Broken.Get()[Broken.Top] = id;
+        Logger.Error($"unknown event name: {name}");
     }
 }

@@ -1,4 +1,5 @@
 using Lua;
+using vubox.engine;
 
 namespace vubox.modding;
 
@@ -9,22 +10,18 @@ public partial class ModAPI_Debug
     [LuaMember("log")]
     public void Log(string message)
     {
-        Console.WriteLine($"[MOD] (LOG) :: {message}");
+        Logger.Log(ConsoleColor.Green, "mod log", message);
     }
 
     [LuaMember("error")]
     public void Err(string message)
     {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine($"[MOD] (ERROR) :: {message}");
-        Console.ResetColor();
+        Logger.Log(ConsoleColor.Red, "mod err", message);
     }
 
     [LuaMember("warn")]
     public void Warn(string message)
     {
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine($"[MOD] (WARN) :: {message}");
-        Console.ResetColor();
+        Logger.Log(ConsoleColor.Yellow, "mod warn", message);
     }
 }

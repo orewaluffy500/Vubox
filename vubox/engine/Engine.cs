@@ -29,13 +29,18 @@ public class Engine
         LuaEnv = new(this);
         CallbackManager = new(this);
         EventManager = new(this);
+        
+        Logger.Info("succesful construction of core components");
     }
 
-    public void LoadAsync()
+    public void Load()
     {
         BlockLoader.LoadDefaults();
+        Logger.Info("succesfully loaded default blocks");
         World.Load();
+        Logger.Info("initialized world");
         LuaEnv.Load();
+        Logger.Info("initialized modding environment");
     }
 
     public void Update()
@@ -52,6 +57,36 @@ public class Engine
         }
 
         World.Update(Globals.DELTA_TIME);
+
+        // Check for input
+        CheckInput();
+    }
+
+    public void CheckInput()
+    {
+        // Check keys first
+        if (EventManager.Key.Array is not null)
+        {
+            foreach (var key in Enum.GetValues<KeyboardKey>())
+            {
+                if (key != KeyboardKey.Null && Raylib.IsKeyPressed(key))
+                {
+                    EventManager.Invoke(EventManager.Key, new InputCallbackArgs((int)key));
+                }
+            }
+        }
+
+        // Check mouse buttons
+        if (EventManager.Mouse.Array is not null)
+        {
+            foreach (var mouse in Enum.GetValues<MouseButton>())
+            {
+                if (Raylib.IsMouseButtonPressed(mouse))
+                {
+                    EventManager.Invoke(EventManager.Mouse, new InputCallbackArgs((int)mouse));
+                }
+            }
+        }
     }
 
     public void Draw()
@@ -62,19 +97,21 @@ public class Engine
         Raylib.DrawText($"{Globals.CURRENT_FPS}/{Globals.MAX_FPS}", 0, 0, 14, new(210, 210, 210));
     }
 
-    public void CloseAsync()
+    public void Close()
     {
         // Fire close event
         EventManager.Invoke(EventManager.Close, new NoCallbackArgs());
+        Logger.Info("closing...");
 
         World.Unload();
         TextureLoader.Unload();
         Raylib.CloseWindow();
+        Logger.Info("closed.");
     }
 
-    public void StartAsync()
+    public void Start()
     {
-        LoadAsync();
+        Load();
 
         while (!Raylib.WindowShouldClose())
         {
@@ -165,5 +202,6 @@ public struct EngineEventManager(Engine engine) : IEventManager
         if (name == "key")   Key.Get()[Key.Top] = id;
         if (name == "mouse") Mouse.Get()[Mouse.Top] = id;
         if (name == "close") Close.Get()[Close.Top] = id;
+        Logger.Error($"unknown event name: {name}");
     }
 }

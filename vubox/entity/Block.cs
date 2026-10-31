@@ -12,7 +12,7 @@ public class Block(Engine engine) : IObject
     
     int oldTexture = -1;
     Texture2D? texture = null;
-    public int TextureName = -1;
+    public int TextureId = -1;
     public string Name = "";
 
     public void Draw()
@@ -36,13 +36,13 @@ public class Block(Engine engine) : IObject
 
     public void Update(float dt)
     {
-        if (oldTexture != TextureName) ReloadTexture();
+        if (oldTexture != TextureId) ReloadTexture();
     }
 
     internal void ReloadTexture()
     {
-        texture = TextureLoader.GetTextureUnsure(TextureName);
-        oldTexture = TextureName;
+        texture = TextureLoader.GetTextureUnsure(TextureId);
+        oldTexture = TextureId;
     }
 
     public void Interact()

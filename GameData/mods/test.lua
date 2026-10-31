@@ -1,1 +1,1 @@
-game.debug:log("Hello!")
+game.debug:log("hi!")

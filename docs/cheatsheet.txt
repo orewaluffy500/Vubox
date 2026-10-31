@@ -1,0 +1,33 @@
+<(      METHODS      )>
+
+game.debug
+    :log(txt)
+    :err(txt)
+    :warn(txt)
+
+game.res
+    :block(name): BlockConfig
+    :texture(path): int (TextureId)
+
+game.world
+    .playerX, .playerY
+    :movePlayer(dx, dy)
+    :tpPlayer(dx, dy)
+    :place(blockName, x, y, replace? = false)
+    :destroy(x, y)
+    :on(eventName, callbackId)
+
+game.callback(function): int
+game.on(eventName, callbackId)
+
+
+<(      EVENT NAMES     )>
+world:
+    place: (block)      # block placed
+    break: (block)      # block about to destroy
+
+game:
+    cycle: ()           # tick (20 Hz)
+    close: ()           # game closing
+    key: (key)          # key pressed
+    mouse: (button)     # mouse button pressed

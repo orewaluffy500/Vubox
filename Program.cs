@@ -7,7 +7,7 @@ Engine engine = new("Vubox (BETA)");
 LuaState state = LuaState.Create();
 
 try {
-    engine.StartAsync();
+    engine.Start();
 } catch (Exception e)
 {
     if (args.Contains("-vv"))
@@ -19,5 +19,5 @@ try {
     }
 } finally
 {
-    engine.CloseAsync();
+    engine.Close();
 }
