@@ -32,6 +32,12 @@ game:
     key: (key)          # key pressed
     mouse: (button)     # mouse button pressed
 
+BlockConfig:
+    cycle: (block)      # tick cycle (20 Hz)
+    place: (block)      # block placed
+    break: (block)      # block broken
+    interact: (block)   # block interacted with
+
 <(      CLASSES         )>
 
 BlockConfig:

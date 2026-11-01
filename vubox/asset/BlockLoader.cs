@@ -29,12 +29,4 @@ public static class BlockLoader
         if (Configs.TryGetValue(id, out var bc)) return bc;
         throw new Exception($"block by identifier '{id}' is not registered!");
     }
-
-    public static void LoadDefaults()
-    {
-        LoadBlock(new BlockConfig(TextureLoader.Load("textures/dirt.png"), "default:dirt"){ DisplayName = "dirt" });
-        LoadBlock(new BlockConfig(TextureLoader.Load("textures/stone.png"), "default:stone"){ DisplayName = "stone" });
-        LoadBlock(new BlockConfig(TextureLoader.Load("textures/gravel.png"), "default:gravel"){ DisplayName = "gravel" });
-        LoadBlock(new BlockConfig(TextureLoader.Load("textures/planks.png"), "default:planks"){ DisplayName = "planks" });
-    }
 }

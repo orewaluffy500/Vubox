@@ -37,10 +37,12 @@ public class Chunk(int x, int y) : IObject
 
     public void Update(float dt)
     {
+        if (!Globals.Engine.IsCycling) return;
+
         foreach (Block block in Blocks)
         {
             if (block is null) continue;
-            block.Update(dt);
+            block.Cycle();
         }
     }
 
@@ -52,7 +54,8 @@ public class Chunk(int x, int y) : IObject
     }
 
     public void Clear(int localX, int localY)
-    {if (localX < 0 || localX >= Globals.CHUNK_SIZE) throw new Exception("out of bounds x coordinate!");
+    {
+        if (localX < 0 || localX >= Globals.CHUNK_SIZE) throw new Exception("out of bounds x coordinate!");
         if (localY < 0 || localY >= Globals.CHUNK_SIZE) throw new Exception("out of bounds y coordinate!"); // TODO : replace with my own error
         Array.Clear(Blocks, localY * Globals.CHUNK_SIZE + localX, 1);
     }

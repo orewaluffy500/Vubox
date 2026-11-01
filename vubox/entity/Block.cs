@@ -2,22 +2,32 @@ using vubox.asset;
 using vubox.engine;
 using Raylib_cs;
 using vubox.events;
+using vubox.modding;
 
 namespace vubox.blocks;
 
-public class Block(Engine engine, string name) : IObject
+public class Block : IObject
 {
-    public Engine Engine = engine;
+    public Engine Engine;
     public int X = 0, Y = 0;
     public int Frame = 0, Row = 0;
     
     int oldTexture = -1;
     Texture2D? texture = null;
     public int TextureId = -1;
-    public string Name = name;
+    public string Name;
     public bool Asleep = true;
 
-    BlockEventManager _eventManager = BlockEvents.GetManager(name);
+    private BlockEventManager _eventManager;
+    private ModAPI_Block _luaBlock;
+
+    public Block(Engine engine, string name)
+    {
+        Name = name;
+        Engine = engine;
+        _luaBlock = new(Engine.World, this); // Create a lua block beforehand to avoid allocations every callback
+        _eventManager = BlockEvents.GetManager(name);
+    }
 
     public void Draw()
     {
@@ -33,12 +43,13 @@ public class Block(Engine engine, string name) : IObject
     public void Load()
     {
         if (Asleep) return;
-        _eventManager.Invoke(_eventManager.Place, new NoCallbackArgs());
+        _eventManager.Invoke(_eventManager.Place, new BlockCallbackArgs(_luaBlock));
     }
 
     public void Unload()
     {
         if (Asleep) return;
+        _eventManager.Invoke(_eventManager.Break, new BlockCallbackArgs(_luaBlock));
     }
 
     public void Update(float dt)
@@ -49,6 +60,7 @@ public class Block(Engine engine, string name) : IObject
     public void Cycle()
     {
         if (Asleep) return;   
+        _eventManager.Invoke(_eventManager.Cycle, new BlockCallbackArgs(_luaBlock));
     }
 
     internal void ReloadTexture()
@@ -60,6 +72,7 @@ public class Block(Engine engine, string name) : IObject
     public void Interact()
     {
         if (Asleep) return;   
+        _eventManager.Invoke(_eventManager.Interact, new BlockCallbackArgs(_luaBlock));
     }
 }
 

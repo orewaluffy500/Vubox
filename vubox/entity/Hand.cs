@@ -17,10 +17,16 @@ public class Hand(Player player) : Entity
     public override void Load()
     {
         var keys = BlockLoader.Configs.Keys.ToArray();
+        if (keys.Length <= 0) return;
+        RefreshSelectedConfig(keys);
+    }
 
+    private void RefreshSelectedConfig(string[] keys)
+    {
         Selected = keys[SelectedIndex];
         SelectedConfig = BlockLoader.GetConfig(Selected);
     }
+
     public override void Draw()
     {
         Raylib.DrawRectangle(
@@ -45,12 +51,12 @@ public class Hand(Player player) : Entity
         Y = (int)(roundedCellY / Globals.CELL_SIZE); // convert pixel cell coords back into grid coords
 
         var keys = BlockLoader.Configs.Keys.ToArray();
+        if (Selected == "") RefreshSelectedConfig(keys);
 
         if (Raylib.IsKeyPressed(KeyboardKey.Tab))
         {
             SelectedIndex = ++SelectedIndex < keys.Length ? SelectedIndex : 0;
-            Selected = keys[SelectedIndex];
-            SelectedConfig = BlockLoader.GetConfig(Selected);
+            RefreshSelectedConfig(keys);
         }
 
         else if (Raylib.IsMouseButtonDown(MouseButton.Left))

@@ -26,3 +26,13 @@ public struct InputCallbackArgs(int input) : ICallbackParams
         env.Push(input);
     }
 }
+
+public struct BlockCallbackArgs(ModAPI_Block block) : ICallbackParams
+{
+    public int Count => 1;
+
+    public void Push(LuaEnviron env)
+    {
+        env.Push(block);
+    }
+}

@@ -11,7 +11,7 @@ public class BlockConfig(int texture, string name)
 
     public Block Finish(int x, int y)
     {
-        Block b = new(Globals.Engine!, Name)
+        Block b = new(Globals.Engine, Name)
         {
             X = x,
             Y = y,

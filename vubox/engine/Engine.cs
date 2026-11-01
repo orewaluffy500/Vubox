@@ -16,7 +16,7 @@ public class Engine
     public EngineEventManager EventManager;
 
     private float timeTillTick = Globals.TICK_DELAY;
-    public bool Ticking = false;
+    public bool IsCycling = false;
 
     public Engine(string title)
     {
@@ -35,7 +35,6 @@ public class Engine
 
     public void Load()
     {
-        BlockLoader.LoadDefaults();
         Logger.Info("succesfully loaded default blocks");
         World.Load();
         Logger.Info("initialized world");
@@ -45,12 +44,12 @@ public class Engine
 
     public void Update()
     {
-        Ticking = false;
+        IsCycling = false;
         timeTillTick -= Globals.DELTA_TIME;
         if (timeTillTick <= 0f)
         {
             timeTillTick = Globals.TICK_DELAY;
-            Ticking = true;
+            IsCycling = true;
             
             // Fire cycle event
             EventManager.Invoke(EventManager.Cycle, new NoCallbackArgs());

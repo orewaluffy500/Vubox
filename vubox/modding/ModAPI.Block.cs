@@ -19,15 +19,4 @@ public partial class ModAPI_Block(World world, Block block)
     public string Name => _block.Name;
     [LuaMember("texture")]
     public int TextureId { get => _block.TextureId; set => _block.TextureId = value; }
-
-    [LuaMember("copyTo")]
-    public bool CopyTo(int destX, int destY)
-    {
-        Block? block = _world.Place(Name, destX, destY, true);
-        if (block is null) return false;
-
-        block.TextureId = TextureId;
-
-        return true;
-    }
 }
