@@ -13,7 +13,7 @@ public partial class ModAPI(Engine engine)
     [LuaMember("world")]
     public ModAPI_World World { get; } = new(engine.World);
     [LuaMember("res")]
-    public ModAPI_Resources Resources { get; } = new();
+    public ModAPI_Resources Resources { get; } = new(engine);
 
     [LuaMember("callback")]
     public int Callback(LuaFunction function)

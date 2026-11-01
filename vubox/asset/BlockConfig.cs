@@ -4,19 +4,19 @@ namespace vubox.engine.blockconfig;
 
 public class BlockConfig(int texture, string name)
 {
-    public string Name { get; private set; } = name;
-    public int Texture { get; private set; } = texture;
-    public string DisplayName { get; private set; } = name;
-    public BlockConfig Display(string v){ DisplayName = v; return this; }
+    public string Name { get; set; } = name;
+    public int Texture { get; set; } = texture;
+    public string DisplayName { get; set; } = name;
+    public bool Asleep { get; set; } = true;
 
     public Block Finish(int x, int y)
     {
-        Block b = new(Globals.Engine!)
+        Block b = new(Globals.Engine!, Name)
         {
             X = x,
             Y = y,
-            Name = Name,
-            TextureId = Texture
+            TextureId = Texture,
+            Asleep = Asleep
         };
         return b;
     }

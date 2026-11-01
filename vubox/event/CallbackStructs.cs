@@ -23,19 +23,23 @@ public struct DefaultEventManager
     // use TArgs for the argument struct type to avoid boxing.
     public static void Invoke<TArgs>(Engine engine, LazyCallbackArray array, TArgs args) where TArgs: struct, ICallbackParams
     {
+        // skip if no events
         if (array.Array is null) return;
 
+        // go through each id
         foreach (var id in array.Get())
         {
-            if (id == 0) return;
+            if (id == 0) return; // 0 is the end point
 
+            // get function
             var func = engine.CallbackManager.GetCallback(id);
 
+            // get the base index for where the function is pushed
             var baseIndex = engine.LuaEnv.StackCount();
             
-            engine.LuaEnv.Push(func);
-            args.Push(engine.LuaEnv);
-            engine.LuaEnv.Call(baseIndex);
+            engine.LuaEnv.Push(func);   // push function
+            args.Push(engine.LuaEnv);   // push function argument
+            engine.LuaEnv.Call(baseIndex); // call from base index
         }
     }
 }

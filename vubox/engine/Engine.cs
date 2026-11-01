@@ -101,12 +101,17 @@ public class Engine
     {
         // Fire close event
         EventManager.Invoke(EventManager.Close, new NoCallbackArgs());
-        Logger.Info("closing...");
 
         World.Unload();
+        Logger.Info("unloaded world");
+        
         TextureLoader.Unload();
+        Logger.Info("unloaded textures");
+        
         Raylib.CloseWindow();
-        Logger.Info("closed.");
+        Logger.Info("closed raylib environment");
+
+        Logger.Info("closing...");
     }
 
     public void Start()

@@ -12,10 +12,10 @@ try {
 {
     if (args.Contains("-vv"))
     {
-        Console.WriteLine($"Error!\n{e}");
+        Logger.Error($"Error!\n -- {e}");
     } else
     {
-        Console.WriteLine($"Error!\n{e.Message} {e.InnerException?.Message}");
+        Logger.Error($"Error!\n -- {e.Message} {e.InnerException?.Message}");
     }
 } finally
 {

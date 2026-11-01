@@ -31,3 +31,13 @@ game:
     close: ()           # game closing
     key: (key)          # key pressed
     mouse: (button)     # mouse button pressed
+
+<(      CLASSES         )>
+
+BlockConfig:
+    game.res:block(name)        # create
+    .display                    # in-game name
+    .texture                    # texture id
+    .asleep                     # is sleeping (no updates) by default
+    :commit()                   # commit config to registry
+    :on(event, callbackId)      # connect an event (can be used after commission too)
